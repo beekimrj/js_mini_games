@@ -36,14 +36,14 @@
         radius: 10,
         color: "yellow"
       }
-    }
+    };
 
     function createCircle(xCordinate, yCordinate, radius, color){
       context.beginPath();
       context.fillStyle = color;
       context.arc(xCordinate, yCordinate, radius, startAngle, endAngle);
       context.fill();
-    }
+    };
 
     // box
     canvas.addEventListener("mousemove", (event) => {
@@ -53,9 +53,9 @@
       // Clearing the canvas
       context.clearRect(0, 0, 400, 400);
 
-      Object.keys(circles).forEach((circleType) => {
-        createCircle(xCordinate, yCordinate, circles[circleType]["radius"], circles[circleType]["color"]);
-      })
+      Object.values(circles).forEach((circle) => {
+        createCircle(xCordinate, yCordinate, circle["radius"], circle["color"]);
+      });
     });
   </script>
 </body>
