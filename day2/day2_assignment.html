@@ -30,21 +30,23 @@
     const startAngle = 0;
     const endAngle = 360;
 
-    // Circle values should be arranged in descending order of radius.
-    const circles = {
-      outerCircle: {
-        radius: 30,
-        color: "blue"
-      },
-      midCircle: {
+    // Circle values
+    const circles = [
+      {
         radius: 20,
         color: "red"
       },
-      innerCircle: {
+      {
+        radius: 30,
+        color: "blue"
+      },
+      {
         radius: 10,
         color: "yellow"
       }
-    };
+    ]
+    // Circles should be arranged in descending order of radius
+    const sortedCircles = circles.sort((circle1, circle2) => circle2["radius"] - circle1["radius"]);
 
     function createCircle(xCordinate, yCordinate, radius, color) {
       context.beginPath();
@@ -60,7 +62,7 @@
       // Clearing the canvas
       context.clearRect(canvasStartingXCordinate, canvasStartingYCordinate, canvasWidth, canvasHeight);
 
-      Object.values(circles).forEach((circle) => {
+      sortedCircles.forEach((circle) => {
         createCircle(xCordinate, yCordinate, circle["radius"], circle["color"]);
       });
     });
