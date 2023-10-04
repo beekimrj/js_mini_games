@@ -18,21 +18,27 @@
     const canvas = document.getElementById("canvas");
     const context = canvas.getContext("2d");
 
-    // Setting radius for 3 circles
-    const innerCircleRadius = 10;
-    const midCircleRadius = 15;
-    const outerCircleRadius = 20;
-
-    // Setting Colors
-    const innerCircleColor = "yellow";
-    const midCircleColor = "red";
-    const outerCircleColor = "blue";
-
     // Setting Circles starting and ending angles
     const startAngle = 0;
     const endAngle = 360;
 
-    function circleCreator(xCordinate, yCordinate, radius, color){
+    // Circle values should be arranged in descending order of radius.
+    const circles = {
+      outerCircle: {
+        radius: 30,
+        color: "blue"
+      },
+      midCircle: {
+        radius: 20,
+        color: "red"
+      },
+      innerCircle: {
+        radius: 10,
+        color: "yellow"
+      }
+    }
+
+    function createCircle(xCordinate, yCordinate, radius, color){
       context.beginPath();
       context.fillStyle = color;
       context.arc(xCordinate, yCordinate, radius, startAngle, endAngle);
@@ -47,13 +53,9 @@
       // Clearing the canvas
       context.clearRect(0, 0, 400, 400);
 
-      // outer circle
-      circleCreator(xCordinate, yCordinate, outerCircleRadius, outerCircleColor);
-      // mid circle
-      circleCreator(xCordinate, yCordinate, midCircleRadius, midCircleColor);
-      // inner circle
-      circleCreator(xCordinate, yCordinate, innerCircleRadius, innerCircleColor);
-
+      Object.keys(circles).forEach((circleType) => {
+        createCircle(xCordinate, yCordinate, circles[circleType]["radius"], circles[circleType]["color"]);
+      })
     });
   </script>
 </body>
