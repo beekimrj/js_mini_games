@@ -1,22 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Day 2</title>
+  <style>
+
+  </style>
 </head>
+
 <body>
-  <canvas
-    id="canvas"
-    style="background-color: black;"
-    width="400"
-    height="400"
-  >
+  <canvas id="canvas" style="background-color: black;" width="400" height="400">
   </canvas>
 
   <script>
     const canvas = document.getElementById("canvas");
     const context = canvas.getContext("2d");
+
+    // Get starting points and size of canvas
+    const rect = canvas.getBoundingClientRect();
+    const canvasStartingXCordinate = 0 // rect.left; // not working as we need to consider margin
+    const canvasStartingYCordinate = 0 // rect.top;
+    const canvasWidth = rect.width;
+    const canvasHeight = rect.height;
+
 
     // Setting Circles starting and ending angles
     const startAngle = 0;
@@ -38,7 +46,7 @@
       }
     };
 
-    function createCircle(xCordinate, yCordinate, radius, color){
+    function createCircle(xCordinate, yCordinate, radius, color) {
       context.beginPath();
       context.fillStyle = color;
       context.arc(xCordinate, yCordinate, radius, startAngle, endAngle);
@@ -49,9 +57,8 @@
     canvas.addEventListener("mousemove", (event) => {
       const xCordinate = event.clientX;
       const yCordinate = event.clientY;
-
       // Clearing the canvas
-      context.clearRect(0, 0, 400, 400);
+      context.clearRect(canvasStartingXCordinate, canvasStartingYCordinate, canvasWidth, canvasHeight);
 
       Object.values(circles).forEach((circle) => {
         createCircle(xCordinate, yCordinate, circle["radius"], circle["color"]);
@@ -59,4 +66,5 @@
     });
   </script>
 </body>
+
 </html>
