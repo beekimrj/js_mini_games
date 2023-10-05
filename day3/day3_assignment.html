@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Loop</title>
+</head>
+<body>
+  <canvas id="canvas" width="400" height="400" style="background-color: red;"></canvas>
+  <script>
+    const canvas = document.getElementById("canvas");
+    const context = canvas.getContext("2d");
+    // Get starting points and size of canvas
+    const rect = canvas.getBoundingClientRect();
+    const canvasStartingXCordinate = 0 // rect.left; // not working as we need to consider margin
+    const canvasStartingYCordinate = 0 // rect.top;
+    const canvasWidth = rect.width;
+    const canvasHeight = rect.height;
+
+
+    // Setting Ball properties
+    const startAngle = 0;
+    const endAngle = 360;
+    const radius = 20;
+    const color = "blue";
+    let xCordinate = 0;
+    let yCordinate = 0;
+
+    function createBall(xCordinate, yCordinate) {
+      context.beginPath();
+      context.fillStyle = color;
+      context.arc(xCordinate, yCordinate, radius, startAngle, endAngle);
+      context.fill();
+    };
+
+    function clearCanvas(){
+      context.clearRect(canvasStartingXCordinate, canvasStartingYCordinate, canvasWidth, canvasHeight);
+    }
+
+    // Saving requestAnimationFrame id to reset call when new even it triggered
+    let requestAnimationFrame_id = undefined;
+    function dropBall(a){
+      clearCanvas();
+      createBall(xCordinate, yCordinate)
+      yCordinate += 5;
+      if (yCordinate > (canvasHeight-radius)){
+        return;
+      }
+      requestAnimationFrame_id = window.requestAnimationFrame(dropBall)
+    }
+
+    canvas.addEventListener("click", (event) => {
+      if (requestAnimationFrame_id){
+        window.cancelAnimationFrame(requestAnimationFrame_id)
+      }
+      xCordinate = event.clientX;
+      yCordinate = event.clientY;
+
+     dropBall(xCordinate, yCordinate);
+    });
+  </script>
+</body>
+</html>

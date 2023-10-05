@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Loop</title>
+</head>
+<body>
+  <canvas id="canvas" width="400" height="400" style="background-color: red;"></canvas>
+  <script>
+    const canvas = document.getElementById("canvas");
+    const context = canvas.getContext("2d");
+
+    context.clearRect( 0, 0, 400,400)
+    context.beginPath();
+    context.rect(0, 0, 50 , 50)
+    context.fill();
+
+    let x = 0;
+    let y = 0;
+
+    // setInterval(() => {
+
+    //   context.clearRect( 0, 0, 400,400)
+    //   context.beginPath();
+    //   context.rect(x, y, 50 , 50)
+    //   context.fill();
+
+    //   x+=1;
+    //   y+=1;
+    // }, 1000 / 60) // 60 FPS
+
+    function renderBox(){
+      context.clearRect( 0, 0, 400,400)
+      context.beginPath();
+      context.rect(x, y, 50 , 50)
+      context.fill();
+
+      x += 1;
+      y += 1;
+    }
+
+    function update() {
+      if(x >= 400) {
+        return;
+      }
+
+      renderBox();
+      window.requestAnimationFrame(update);
+    }
+
+    update()
+  </script>
+</body>
+</html>
