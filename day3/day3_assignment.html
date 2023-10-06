@@ -47,10 +47,9 @@
       clearCanvas();
       createBall(xCordinate, yCordinate)
       yCordinate += ballSpeed;
-      if (yCordinate > (maxYCordinate)) {
-        return;
+      if (yCordinate <= maxYCordinate) {
+        requestAnimationFrame_id = window.requestAnimationFrame(dropBall)
       }
-      requestAnimationFrame_id = window.requestAnimationFrame(dropBall)
     }
 
     canvas.addEventListener("click", (event) => {
